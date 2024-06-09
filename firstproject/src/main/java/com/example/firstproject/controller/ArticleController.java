@@ -44,6 +44,7 @@ public class ArticleController {
         return "redirect:/articles/" + saved.getId();
     }
 
+    // 디테일 페이지
     @GetMapping("/articles/{id}") // 데이터 조회 요청 접수
     public String show(@PathVariable Long id, Model model) {  // @PathVariable : URL 요청으로 들어온 전달값을 컨트롤러의 매개변수로 가져오는 어노테이션
         log.info("id : " + id);
@@ -58,6 +59,7 @@ public class ArticleController {
         return "articles/show";
     }
 
+    // 전체 목록
     @GetMapping("/articles")
     public String index(Model model) {
         // 1. DB에서 모든 Article 데이터 가져오기

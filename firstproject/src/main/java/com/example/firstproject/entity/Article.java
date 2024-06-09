@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor  // 생성자 추가 어노테이션
 @NoArgsConstructor  // 기본생성자 추가 어노테이션
 @ToString
+@Data  // Getter, Setter
 public class Article {
     @Id // Entity의 대표값 지정 (PK)
     @GeneratedValue // 자동 생성 기능 추가 (MySQL의 Auto Increment)

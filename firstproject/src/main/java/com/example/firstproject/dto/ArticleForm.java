@@ -7,8 +7,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor // lombok
 public class ArticleForm {
+    private Long id;
     private String title;
     private String content;
+
 
     // 전송받은 제목과 내용을 필드에 저장하는 생성자
 //    public ArticleForm(String title, String content) {
@@ -31,6 +33,6 @@ public class ArticleForm {
     // 아직 ArticleForm 객체에 id 정보는 없으므로
     // 첫 번째 전달값은 null. 두 번째 전달값은 title. 세 번째 전달값은 content를 입력
     public Article toEntity() {
-        return new Article(null, title, content);
+        return new Article(id, title, content);
     }
 }

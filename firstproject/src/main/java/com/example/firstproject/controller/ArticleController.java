@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j // println대신 데이터 검증에 사용하는 log4j
 @Controller
 public class ArticleController {
-    
+
     @Autowired // 스프링 부트가 미리 생성해 놓은 리파지터리 객체 주입 (DI, Dependency Injection)
     private ArticleRepository articleRepository;
 

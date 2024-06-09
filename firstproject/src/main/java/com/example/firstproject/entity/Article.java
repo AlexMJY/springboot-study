@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor  // 생성자 추가 어노테이션
+@NoArgsConstructor  // 기본생성자 추가 어노테이션
 @ToString
 public class Article {
     @Id // Entity의 대표값 지정 (PK)

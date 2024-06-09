@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 @Data
 public class MemberForm {
+//    private Long id;
     private String email;
     private String password;
 

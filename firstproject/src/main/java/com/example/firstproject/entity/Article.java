@@ -24,6 +24,10 @@ public class Article {
         this.content = content;
     }
 
+    public Article() {
+
+    }
+
     // override toString() method
 
     @Override

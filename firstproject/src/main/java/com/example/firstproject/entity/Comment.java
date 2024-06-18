@@ -27,7 +27,7 @@ public class Comment {
     @Column
     private String body; // 댓글 본문
 
-    public static Comment createComment(CommentDto dto, Article article) {
+    public static Comment createComment(CommentDto dto, Article article) { // 댓글 생성 기능. service의 create 메서드에서 사용
         // 예외 발생
         if (dto.getId() != null) {
             throw new IllegalArgumentException("댓글 생성 실패. 댓글의 id가 없어야 합니다.");
@@ -37,5 +37,20 @@ public class Comment {
         }
         // 엔티티 생성 및 반환
         return new Comment(dto.getId(), article, dto.getNickname(), dto.getBody());
+    }
+
+    public void patch(CommentDto dto) { // 댓글 수정
+        // 댓글 수정 요청 시 URL에 있는 id와 JSON 데이터의 id가 다른 경우 예외 처리
+        if (this.id != dto.getId())
+            throw new IllegalArgumentException("댓글 수정 실패. 잘못된 id가 입력되었습니다.");
+
+        // 예외가 발생하지 않았다면 수정할 내용을 적용
+        // 수정 내용이 dto에 있으므로 이를 기존 댓글(this)에 반영
+        // 댓글의 id와 articleId는 수정 불가능하고 nickname, body만 수정 가능
+        // 수정할 닉네임 또는 본문이 있으면 기존 댓글에 이를 갱신
+        if (dto.getNickname() != null)  // 수정할 닉네임 데이터가 있다면
+            this.nickname = dto.getNickname(); // 내용 반영
+        if (dto.getBody() != null)
+            this.body = dto.getBody();
     }
 }

@@ -1,11 +1,13 @@
 package com.example.firstproject.service;
 
 import com.example.firstproject.dto.CommentDto;
+import com.example.firstproject.entity.Article;
 import com.example.firstproject.entity.Comment;
 import com.example.firstproject.repository.ArticleRepository;
 import com.example.firstproject.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +35,21 @@ public class CommentService {
         return dtos; */
 
         return commentRepository.findByArticleId(articleId).stream().map(comment -> CommentDto.createCommentDto(comment)).collect(Collectors.toList());
+    }
+    @Transactional // 댓글 생성에 실패할 수 있기 때문에 롤백 기능 필요
+    public CommentDto create(Long articleId, CommentDto dto) {
+        // 1. 게시글 조회 및 예외 발생
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패. 대상 게시글 없음"));
+        // orElseThrow() 메서드는 Optional 객체(존재할수도 있지만 안 할 수도 있는 객체, 즉 nullOI 될 수도 있는 객체)에 값이 존재하면 그 값을 반환하고,
+        // 값이 존재하지 않으면 전달값으로 보낸 예외를 발생시키는 메서드
+
+        // 2. 댓글 엔티티 생성
+        Comment comment = Comment.createComment(dto, article);
+
+        // 3. 댓글 엔티티를 DB에 저장
+        Comment created = commentRepository.save(comment);
+
+        // 4. DTO로 변환해 반환
+        return CommentDto.createCommentDto(created);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.firstproject.entity;
 
 import com.example.firstproject.dto.CommentDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Comment {
 
     @ManyToOne // Comment 엔티티와 Article 엔티티를 다대일 관계로 설정
     @JoinColumn(name = "article_id") // 외래키 생성, Article 엔티티의 기본키(id)와 매핑
+//    @JsonProperty(value = "articleId")
     private Article article; // 해당 댓글의 부모 게시글
 
     @Column // 해당 필드를 테이블의 속성으로 매핑
@@ -28,6 +30,9 @@ public class Comment {
     private String body; // 댓글 본문
 
     public static Comment createComment(CommentDto dto, Article article) { // 댓글 생성 기능. service의 create 메서드에서 사용
+        System.out.println("!!! dto getArticleId : " + dto.getArticleId());
+        System.out.println("!!! artilce id : " + article.getId());
+
         // 예외 발생
         if (dto.getId() != null) {
             throw new IllegalArgumentException("댓글 생성 실패. 댓글의 id가 없어야 합니다.");

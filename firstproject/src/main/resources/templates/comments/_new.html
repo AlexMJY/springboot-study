@@ -41,13 +41,14 @@
                     // 새 댓글의 본문
                     body: document.querySelector("#new-comment-body").value,
                     // 부모 게시글의 id
-                    articleId: document.querySelector("#new-comment-article-id").value
+                    article_id: document.querySelector("#new-comment-article-id").value
                 };
                 // 댓글 객체 출력
                 console.log(comment);
 
                 // fetch() - 비동기 통신을 위한 API
                 const url = "/api/articles/" + comment.articleId + "/comments";
+                console.log("url : " + url)
                 fetch(url, {
                     method: "POST",
                     headers: {

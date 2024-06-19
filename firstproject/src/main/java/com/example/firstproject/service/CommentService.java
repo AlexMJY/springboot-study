@@ -39,9 +39,11 @@ public class CommentService {
     @Transactional // 댓글 생성에 실패할 수 있기 때문에 롤백 기능 필요
     public CommentDto create(Long articleId, CommentDto dto) {
         // 1. 게시글 조회 및 예외 발생
-        Article article = articleRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패. 대상 게시글 없음"));
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패. 대상 게시글 없음"));
         // orElseThrow() 메서드는 Optional 객체(존재할수도 있지만 안 할 수도 있는 객체, 즉 nullOI 될 수도 있는 객체)에 값이 존재하면 그 값을 반환하고,
         // 값이 존재하지 않으면 전달값으로 보낸 예외를 발생시키는 메서드
+
 
         // 2. 댓글 엔티티 생성
         Comment comment = Comment.createComment(dto, article);

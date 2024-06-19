@@ -47,7 +47,7 @@
                 console.log(comment);
 
                 // fetch() - 비동기 통신을 위한 API
-                const url = "/api/articles/" + comment.articleId + "/comments";
+                const url = "/api/articles/" + comment.article_id + "/comments";
                 console.log("url : " + url)
                 fetch(url, {
                     method: "POST",
